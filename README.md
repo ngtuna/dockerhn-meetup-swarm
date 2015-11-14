@@ -138,6 +138,24 @@ $ docker run -it -v data:/data alpine cat /data/demo
 ERROR: cat: can't open '/data/demo': No such file or directory
 ```
 
+# Strategy
+The Docker Swarm scheduler features multiple strategies for ranking nodes. The strategy you choose determines how Swarm computes ranking. When you run a new container, Swarm chooses to place it on the node with the highest computed ranking for your chosen strategy.
+```
+https://docs.docker.com/swarm/scheduler/strategy/
+```
+Under the `spread` strategy, Swarm optimizes for the node with the least number of running containers. The `binpack` strategy causes Swarm to optimize for the node which is most packed. The `random` strategy, like it sounds, chooses nodes at random regardless of their available CPU or RAM. Default strategy is `spread`
+
+```
+NOTE: demo it!
+```
+
+## Change Strategy
+```
+$ docker run swarm manage --strategy=binpack consul://$(docker-machine ip consul-master):8500
+```
+## Filter
+https://docs.docker.com/swarm/scheduler/filter/
+
 # Reference
 ```
 https://github.com/dave-tucker/docker-network-demos
