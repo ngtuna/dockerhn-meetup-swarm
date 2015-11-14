@@ -85,7 +85,9 @@ $ docker-machine create \
     --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" \
     --engine-opt="cluster-advertise=eth1:0" \
     swarm-agent-01
-
+##############################################
+#### Constraint swarm node to test filter ####
+##############################################
 $ docker-machine create \
     --driver=virtualbox \
     --swarm \
@@ -159,13 +161,25 @@ NOTE: demo it!
 
 ## Change Strategy
 ```
-$ docker run swarm manage --strategy=binpack consul://$(docker-machine ip consul-master):8500
+$ docker-machine create \
+    --driver=virtualbox \
+    --swarm \
+    --swarm-master \
+    --swarm-discovery="consul://$(docker-machine ip consul-master):8500" \
+    --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" \
+    --engine-opt="cluster-advertise=eth1:0" \
+    --engine-opt="--strategy=binpack" \
+    swarm-master-01
+$ eval $(docker-machine env --swarm swarm-master-01)
+$ docker-compose -f swarm-strategy.yml up
+$ docker-compose scale busybox=3
+$ docker ps
 ```
 ## Filter
 https://docs.docker.com/swarm/scheduler/filter/
 ```
 ### Constraint filter
-$ docker run -it -e constraint:layer==web --name app1 busybox
+$ docker run -it -e constraint:layer==web busybox
 ```
 
 # Reference
