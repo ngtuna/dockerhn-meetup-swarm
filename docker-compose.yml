@@ -1,0 +1,10 @@
+web:
+  image: bfirsh/compose-mongodb-demo
+  environment:
+    - "MONGO_HOST=counter_mongo_1"
+    - "constraint:node==swarm-master"
+  ports:
+    - "80:5000"
+
+mongo:
+  image: mongo
