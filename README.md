@@ -28,11 +28,11 @@ $ docker-machine create --driver=virtualbox \
 ```
 $ docker-machine create --driver=virtualbox \
         --swarm \
-        --swarm-discovery token://9cec215f2925252d37a485fc18a16127 \
+        --swarm-discovery token://37e5adaaf34b487f8027979543f97db9 \
         swarm-agent-00
 $ docker-machine create --driver=virtualbox \
         --swarm \
-        --swarm-discovery token://9cec215f2925252d37a485fc18a16127 \
+        --swarm-discovery token://37e5adaaf34b487f8027979543f97db9 \
         swarm-agent-01
 ```
 ### Direct your swarm
@@ -122,7 +122,6 @@ $ ping app2
 #### Demo with docker-compose
 ```
 $ docker-compose --x-network-driver=overlay --x-networking up -d
-ERROR: Couldn't connect to Docker daemon - you might need to run `docker-machine start default`.
 ```
 
 #### Kubernetes over Swarm
