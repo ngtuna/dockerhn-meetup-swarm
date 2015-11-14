@@ -142,9 +142,8 @@ $ docker-compose --x-networking -f k8s-swarm.yml scale kubelet=2 proxy=2
 ### Volume
 ```
 $ docker volume create --name=data
-$ docker run -it -v data:/data alpine /bin/sh -c "echo hello world > /data/demo"
-$ docker run -it -v data:/data alpine cat /data/demo
-ERROR: cat: can't open '/data/demo': No such file or directory
+$ docker run -it -e constraint:layer==web -v data:/data alpine /bin/sh -c "echo hello world > /data/demo"
+$ docker run -it -e constraint:layer==web -v data:/data alpine cat /data/demo
 ```
 
 # Strategy
@@ -164,6 +163,10 @@ $ docker run swarm manage --strategy=binpack consul://$(docker-machine ip consul
 ```
 ## Filter
 https://docs.docker.com/swarm/scheduler/filter/
+```
+### Constraint filter
+$ docker run -it -e constraint:layer==web --name app1 busybox
+```
 
 # Reference
 
