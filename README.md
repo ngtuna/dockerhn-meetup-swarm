@@ -85,6 +85,15 @@ $ docker-machine create \
     --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" \
     --engine-opt="cluster-advertise=eth1:0" \
     swarm-agent-01
+
+$ docker-machine create \
+    --driver=virtualbox \
+    --swarm \
+    --swarm-discovery="consul://$(docker-machine ip consul-master):8500" \
+    --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" \
+    --engine-opt="cluster-advertise=eth1:0" \
+    --engine-label="layer=web" \
+    swarm-agent-02
 ```
 ### Check info
 ```
